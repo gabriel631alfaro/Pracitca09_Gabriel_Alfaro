@@ -1,6 +1,6 @@
 /*
-Previo 09. Fuentes de luz             Alfaro Fragoso José Gabriel 
-Fecha de entrega: 30 de marzo de 2025       317019450
+Practica 09. Fuentes de luz             Alfaro Fragoso José Gabriel 
+Fecha de entrega: 04 de abril de 2025           317019450
 */
 
 #include <iostream>
@@ -159,9 +159,18 @@ int main()
 	Shader lightingShader("Shader/lighting.vs", "Shader/lighting.frag");
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 	
-	Model Dog((char*)"Models/lampara.obj");
-	Model Piso((char*)"Models/piso.obj");
-
+	Model Dog((char*)"Models/RedDog.obj");
+	//Model Piso((char*)"Models/piso.obj");
+	 //Luna 
+	Model moon((char*)"Models/Luna.obj");
+	//Nave 
+	Model nave((char*)"Models/Nave2.obj");
+	// Astronauta 
+	Model astronauta((char*)"Models/Astronauta.obj");
+	//Bandera 
+	Model bandera((char*)"Models/Bandera.obj");
+	//Tierra
+	Model tierra((char*)"Models/tierra.obj");
 
 
 	// First, set the container's VAO (and VBO)
@@ -307,21 +316,56 @@ int main()
 		//Carga de modelo 
         view = camera.GetViewMatrix();	
 		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(10.0f, -2.5f, -15.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		model = glm::rotate(model, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		Piso.Draw(lightingShader);
+		Dog.Draw(lightingShader);
 
+		//Luna
+		model = glm::translate(model, glm::vec3(5.0f, -0.5f, -10.0f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.125f, 0.25f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));//modificar 
+		moon.Draw(lightingShader);//cargar shader de la luz 
 
+		//Nave
+		model = glm::translate(model, glm::vec3(-8.0f, 10.0f, 7.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		//model = glm::rotate(model, 3.0f, glm::vec3(0.0f, -1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		nave.Draw(lightingShader);
+
+		//Astronauta 
+		model = glm::translate(model, glm::vec3(-15.0f, -18.0f, 40.0f));
+		model = glm::scale(model, glm::vec3(0.85f, 0.85f, 0.85f));
+		//model = glm::rotate(model, 3.0f, glm::vec3(0.0f, -1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		astronauta.Draw(lightingShader);
+
+		//Bandera
+		model = glm::translate(model, glm::vec3(-15.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 1.0f));
+		//model = glm::rotate(model, 3.0f, glm::vec3(0.0f, -1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		bandera.Draw(lightingShader);
+
+		//tierra
+		model = glm::translate(model, glm::vec3(-80.0f, 100.0f, -100.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		//model = glm::rotate(model, 180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		tierra.Draw(lightingShader);
 	
-		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));//2.5f, 0.5f, 2.5f
-		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);//cambiar a 1
-	    Dog.Draw(lightingShader);
-		glDisable(GL_BLEND);  //Desactiva el canal alfa 
-		glBindVertexArray(0);
+		//model = glm::mat4(1);
+		//model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));//2.5f, 0.5f, 2.5f
+		////glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);//cambiar a 1
+	 //   Dog.Draw(lightingShader);
+		////glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		//glBindVertexArray(0);
 	
 
 		// Also draw the lamp object, again binding the appropriate shader
