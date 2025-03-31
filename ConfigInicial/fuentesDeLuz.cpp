@@ -315,7 +315,7 @@ int main()
 
 		//Carga de modelo 
         view = camera.GetViewMatrix();	
-		model = glm::mat4(1);
+		model = glm::mat4(1); // checar
 		model = glm::translate(model, glm::vec3(10.0f, -2.5f, -15.0f));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		model = glm::rotate(model, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
