@@ -341,6 +341,7 @@ int main()
 		model = glm::mat4(1);
 		//perro 
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
+		model = glm::mat4(1); 
 		model = glm::translate(model, glm::vec3(10.0f, -2.5f, -15.0f));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		model = glm::rotate(model, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
